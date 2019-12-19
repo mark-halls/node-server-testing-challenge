@@ -1,7 +1,11 @@
 const db = require(`../dbConfig`);
 
-const find = () => {
-  return db(`users`);
+const find = (id = undefined) => {
+  return db(`users`).modify(qb => {
+    if (id) {
+      qb.where({ id });
+    }
+  });
 };
 
 const add = user => {

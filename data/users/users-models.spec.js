@@ -32,8 +32,19 @@ describe(`users-model`, () => {
 
   it(`should return all users`, async () => {
     const user = { username: "test", password: "test" };
-    const [id] = await Users.add(user);
+    const user2 = { username: "test2", password: "test" };
+    await Users.add(user);
+    await Users.add(user2);
     const users = await Users.find();
+    expect(users.length).toBe(2);
+  });
+
+  it(`should return 1 user`, async () => {
+    const user = { username: "test", password: "test" };
+    const user2 = { username: "test2", password: "test" };
+    const [id] = await Users.add(user);
+    const [id2] = await Users.add(user2);
+    const users = await Users.find(id2);
     expect(users.length).toBe(1);
   });
 });
