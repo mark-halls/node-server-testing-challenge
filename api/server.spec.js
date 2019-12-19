@@ -11,5 +11,10 @@ describe(`server.js`, () => {
           expect(res.status).toBe(200);
         });
     });
+    it(`should return {mgs: "api is up"}`, () => {
+      return request(server)
+        .get(`/`)
+        .then(res => expect(res.body).toBe({ msg: "api is up" }));
+    });
   });
 });
