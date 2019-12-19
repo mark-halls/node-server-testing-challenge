@@ -44,7 +44,7 @@ describe(`users-model`, () => {
     const user2 = { username: "test2", password: "test" };
     const [id] = await Users.add(user);
     const [id2] = await Users.add(user2);
-    const users = await Users.find(id2);
-    expect(users.length).toBe(1);
+    const found = await Users.find(id2);
+    expect(found.username).toMatch(/test2/i);
   });
 });

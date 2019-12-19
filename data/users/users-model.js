@@ -3,7 +3,7 @@ const db = require(`../dbConfig`);
 const find = (id = undefined) => {
   return db(`users`).modify(qb => {
     if (id) {
-      qb.where({ id });
+      qb.where({ id }).first();
     }
   });
 };
