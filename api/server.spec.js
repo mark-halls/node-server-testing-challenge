@@ -30,6 +30,16 @@ describe(`server.js`, () => {
         .send(user)
         .then(res => expect(res.body).toMatchObject(user));
     });
+
+    it(`should return a 201 CREATED`, () => {
+      const user = { username: "bilbo", password: "baggins" };
+      return request(server)
+        .post(`/user`)
+        .send(user)
+        .then(res => {
+          expect(res.status).toBe(201);
+        });
+    });
   });
 
   describe(`delete /:id`, () => {
@@ -43,6 +53,19 @@ describe(`server.js`, () => {
             await request(server)
               .del(`/${res.body.id}`)
               .then(deleted => expect(deleted.body).toEqual(1))
+        );
+    });
+
+    it(`should return a 200 OK`, () => {
+      const user = { username: "bilbo", password: "baggins" };
+      return request(server)
+        .post(`/user`)
+        .send(user)
+        .then(
+          async res =>
+            await request(server)
+              .del(`/${res.body.id}`)
+              .then(deleted => expect(deleted.status).toEqual(200))
         );
     });
   });
