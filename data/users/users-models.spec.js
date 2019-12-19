@@ -29,4 +29,11 @@ describe(`users-model`, () => {
     const removedUser = await db(`users`).where({ id });
     expect(removedUser).toEqual([]);
   });
+
+  it(`should return all users`, async () => {
+    const user = { username: "test", password: "test" };
+    const [id] = await Users.add(user);
+    const users = await Users.find();
+    expect(users.length).toBe(1);
+  });
 });
