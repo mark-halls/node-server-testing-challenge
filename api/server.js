@@ -12,4 +12,8 @@ server.post(`/user`, (req, res) => {
     Users.find(id).then(user => res.status(200).json(user))
   );
 });
+
+server.delete(`/:id`, (req, res) => {
+  Users.remove(req.params.id).then(removed => res.status(200).json(removed));
+});
 module.exports = server;

@@ -31,4 +31,19 @@ describe(`server.js`, () => {
         .then(res => expect(res.body).toMatchObject(user));
     });
   });
+
+  describe(`delete /:id`, () => {
+    it(`should delete the user by id`, async () => {
+      const user = { username: "bilbo", password: "baggins" };
+      return request(server)
+        .post(`/user`)
+        .send(user)
+        .then(
+          async res =>
+            await request(server)
+              .del(`/${res.body.id}`)
+              .then(deleted => expect(deleted.body).toEqual(1))
+        );
+    });
+  });
 });
